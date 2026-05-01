@@ -1,11 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inventory Assistant</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.5;
+            margin: 0 auto;
+            max-width: 720px;
+            padding: 24px;
+            color: #1f2937;
+        }
+
+        h1 {
+            color: #0f172a;
+            margin-bottom: 0.5rem;
+        }
+
+        p {
+            margin: 0.75rem 0;
+        }
+
+        .report {
+            background: #f8fafc;
+            border: 1px solid #d1d5db;
+            border-radius: 12px;
+            padding: 18px;
+            margin-top: 20px;
+        }
+
+        .label {
+            font-weight: 700;
+        }
+    </style>
 </head>
 <body>
+    <h1>Inventory Assistant</h1>
+    <p>This interactive inventory calculator evaluates stock levels, reorder recommendations, and estimated reorder cost.</p>
+    <div id="inventory-report" class="report"></div>
     <script src="inventory_assistant.js"></script>
 </body>
 </html>

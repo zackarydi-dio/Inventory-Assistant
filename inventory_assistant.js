@@ -1,30 +1,76 @@
-// Step 1: Create and Initialize Variables
+const inventoryItem = {
+    name: 'USB-C Cable',
+    unitCost: 3.25,
+    currentStock: 120,
+    reorderThreshold: 50,
+    targetStock: 200,
+    weeklyDemand: 25,
+    supplierLeadTimeWeeks: 4,
+};
 
-let itemName = "USB-C Cable";          
-let unitCost = 3.25;                  
-let currentStock = 120;               
-let reorderLevel = 50;                
-let targetStock = 200;                
-let weeklyDemand = 25;                
-let supplierLeadTimeWeeks = 4;         
+function calculateWeeksOfCover(stock, demand) {
+    return demand > 0 ? Number((stock / demand).toFixed(2)) : Infinity;
+}
 
-// Step 2: Calculate Inventory Metrics
+function needsReorder(currentStock, reorderThreshold, weeksOfCover, leadTimeWeeks) {
+    return currentStock <= reorderThreshold || weeksOfCover <= leadTimeWeeks;
+}
 
-let weeksOfCover = weeklyDemand > 0 ? currentStock / weeklyDemand : Infinity;
-weeksOfCover = +weeksOfCover.toFixed(2); 
+function calculateReorderQuantity(currentStock, targetStock, reorderNeeded) {
+    return reorderNeeded ? Math.max(0, Math.ceil(targetStock - currentStock)) : 0;
+}
 
-let stockDeficit = Math.max(0, targetStock - currentStock);
+function formatCurrency(amount) {
+    return `$${amount.toFixed(2)}`;
+}
 
-let reorderNow = currentStock <= reorderLevel || weeksOfCover < supplierLeadTimeWeeks;
+function buildInventoryReport(item) {
+    const weeksOfCover = calculateWeeksOfCover(item.currentStock, item.weeklyDemand);
+    const reorderNeeded = needsReorder(
+        item.currentStock,
+        item.reorderThreshold,
+        weeksOfCover,
+        item.supplierLeadTimeWeeks
+    );
+    const reorderQuantity = calculateReorderQuantity(
+        item.currentStock,
+        item.targetStock,
+        reorderNeeded
+    );
 
-let reorderQuantity = reorderNow ? Math.ceil(stockDeficit) : 0;
+    return {
+        itemName: item.name,
+        currentStock: item.currentStock,
+        reorderThreshold: item.reorderThreshold,
+        targetStock: item.targetStock,
+        weeklyDemand: item.weeklyDemand,
+        supplierLeadTimeWeeks: item.supplierLeadTimeWeeks,
+        weeksOfCover,
+        reorderNeeded,
+        reorderQuantity,
+        estimatedCost: reorderQuantity * item.unitCost,
+    };
+}
 
-let estimatedReorderCost = reorderQuantity * unitCost;
+function renderInventoryReport(report) {
+    const container = document.getElementById('inventory-report');
+    if (!container) return;
 
-// Step 3: Print to Console
+    container.innerHTML = `
+        <p><span class="label">Item:</span> ${report.itemName}</p>
+        <p><span class="label">Current Stock:</span> ${report.currentStock}</p>
+        <p><span class="label">Target Stock:</span> ${report.targetStock}</p>
+        <p><span class="label">Reorder Threshold:</span> ${report.reorderThreshold}</p>
+        <p><span class="label">Weekly Demand:</span> ${report.weeklyDemand}</p>
+        <p><span class="label">Supplier Lead Time:</span> ${report.supplierLeadTimeWeeks} weeks</p>
+        <p><span class="label">Weeks of Cover:</span> ${report.weeksOfCover}</p>
+        <p><span class="label">Reorder Recommended:</span> ${report.reorderNeeded ? 'Yes' : 'No'}</p>
+        <p><span class="label">Recommended Reorder Quantity:</span> ${report.reorderQuantity}</p>
+        <p><span class="label">Estimated Reorder Cost:</span> ${formatCurrency(report.estimatedCost)}</p>
+    `;
 
-console.log("Item Name: " + itemName);
-console.log("Weeks of Cover: " + weeksOfCover);
-console.log("Reorder Now? " + reorderNow);
-console.log("Recommended Reorder Quantity: " + reorderQuantity);
-console.log("Estimated Cost: $" + estimatedReorderCost.toFixed(2));
+    console.log('Inventory Assistant report:', report);
+}
+
+const report = buildInventoryReport(inventoryItem);
+renderInventoryReport(report);

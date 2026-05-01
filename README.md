@@ -1,68 +1,46 @@
 # Inventory Assistant
 
-A lightweight inventory management tool that calculates key metrics and automates reorder recommendations for efficient supply chain management.
+This repository is the featured assignment for Task 3. It demonstrates a clean, interview-ready JavaScript project that calculates inventory metrics and reorder recommendations.
 
-## Overview
+## Project Title
 
-The Inventory Assistant is a JavaScript-based application that helps businesses make data-driven inventory decisions. It analyzes current stock levels, demand patterns, and supplier lead times to provide actionable reorder recommendations and critical inventory metrics.
+Inventory Assistant
 
-## Features
+## Short Description
 
-- **Weeks of Cover Calculation**: Determines how many weeks of inventory are available based on current stock and weekly demand
-- **Stock Level Monitoring**: Compares current inventory against reorder levels to identify when restocking is needed
-- **Intelligent Reorder Recommendations**: Automatically determines when to reorder based on stock thresholds and lead time requirements
-- **Cost Estimation**: Calculates the estimated cost of recommended reorders
-- **Lead Time Consideration**: Accounts for supplier lead times to prevent stockouts
+A lightweight browser-based tool that evaluates stock levels, calculates weeks of cover, checks reorder thresholds, and estimates reorder costs for a single inventory item.
 
-## How It Works
+## Technologies Used
 
-The assistant evaluates inventory status using the following metrics:
+- HTML5
+- Vanilla JavaScript
 
-1. **Current Stock vs. Reorder Level**: Triggers reorder when current stock falls below threshold
-2. **Weeks of Cover**: Calculates remaining inventory duration at current demand rates
-3. **Lead Time Buffer**: Ensures reorder quantity accounts for supplier delivery delays
-4. **Target Stock Deficit**: Determines the quantity needed to reach optimal inventory levels
+## How to Run the Project
 
-## Installation & Usage
+1. Open `index.html` in a modern web browser.
+2. The application runs automatically and renders the result on the page.
+3. The same report is also logged to the browser console for debugging.
 
-1. Open `index.html` in a web browser
-2. The application will execute `inventory_assistant.js` and output results to the browser console
-3. View inventory metrics and reorder recommendations in the Developer Console (F12 or Cmd+Option+J on macOS)
+## What I Learned
 
-## Configuration
+- Using reusable functions to separate calculation and rendering logic.
+- Improving code clarity with meaningful variable names and clean structure.
+- Creating a user-friendly HTML output for a simple JavaScript application.
+- How to prepare a small web project for sharing in interviews.
 
-Edit the variables in `inventory_assistant.js` to customize for your inventory:
+## Notes
 
-```javascript
-let itemName = "USB-C Cable";          // Product name
-let unitCost = 3.25;                   // Cost per unit
-let currentStock = 120;                // Current quantity on hand
-let reorderLevel = 50;                 // Minimum stock threshold
-let targetStock = 200;                 // Desired inventory level
-let weeklyDemand = 25;                 // Average weekly consumption
-let supplierLeadTimeWeeks = 4;         // Days until delivery
-```
+- Update the inventory values in `inventory_assistant.js` to customize the report.
+- No build steps or external dependencies are required.
 
 ## Output
 
-The application generates a console report with:
+The application displays:
 
-- Item Name
-- Weeks of Cover
-- Reorder Recommendation (Yes/No)
-- Recommended Reorder Quantity
-- Estimated Reorder Cost
-
-## Requirements
-
-- Modern web browser with JavaScript support
-- No external dependencies
-
-## Technology Stack
-
-- **HTML5**: Application structure
-- **JavaScript (Vanilla)**: Core calculation engine
-
-## License
-
-This project is provided as-is for educational and business purposes.
+- Item name
+- Current stock and target stock
+- Reorder threshold and supplier lead time
+- Weeks of cover
+- Reorder recommendation
+- Recommended reorder quantity
+- Estimated reorder cost
